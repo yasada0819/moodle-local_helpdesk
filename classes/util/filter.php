@@ -16,8 +16,6 @@
 
 namespace local_helpdesk\util;
 
-use local_kopere_dashboard\util\url_util;
-
 /**
  * Class filter
  *
@@ -26,24 +24,6 @@ use local_kopere_dashboard\util\url_util;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter {
-
-    /**
-     * Function load_kopere
-     *
-     */
-    public static function load_kopere() {
-        global $CFG;
-
-        static $loadkopere = false;
-
-        if (!$loadkopere) {
-            $loadkopere = true;
-
-            require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
-            local_kopere_dashboard_lang();
-        }
-    }
-
     /**
      * Function create_filter_course
      *
@@ -55,23 +35,15 @@ class filter {
      * @throws \dml_exception
      */
     public static function create_filter_course($coursefullname, $courseid) {
-        global $OUTPUT, $PAGE;
-
-        self::load_kopere();
-
-        $data = [
-            "course_fullname" => $coursefullname,
-            "course_id" => $courseid,
-            "url_ajax" => false,
-        ];
-
-        $context = \context_system::instance();
-        if (has_capability("local/helpdesk:ticketmanage", $context)) {
-            $data["url_ajax"] = url_util::makeurl("courses", "load_all_courses", [], "view-ajax");
-            $PAGE->requires->js_call_amd("local_helpdesk/filter_course", "init");
-        }
-
-        return $OUTPUT->render_from_template("local_helpdesk/filter-course", $data);
+        return \html_writer::label(get_string("course"), "courseid") . " " .
+            \html_writer::empty_tag("input", [
+                "type" => "number",
+                "name" => "courseid",
+                "id" => "courseid",
+                "value" => $courseid,
+                "min" => 0,
+                "style" => "width: 7rem;",
+            ]) . " " . \html_writer::span(s($coursefullname), "form-control-static");
     }
 
     /**
@@ -83,16 +55,14 @@ class filter {
      * @return mixed
      */
     public static function create_filter_user($userfullname, $userid) {
-        global $OUTPUT, $PAGE;
-
-        self::load_kopere();
-
-        $data = [
-            "user_fullname" => $userfullname,
-            "user_id" => $userid,
-            "url_ajax" => url_util::makeurl("users", "load_all_users", [], "view-ajax"),
-        ];
-        $PAGE->requires->js_call_amd("local_helpdesk/filter_user", "init");
-        return $OUTPUT->render_from_template("local_helpdesk/filter-user", $data);
+        return \html_writer::label(get_string("user"), "find_user") . " " .
+            \html_writer::empty_tag("input", [
+                "type" => "number",
+                "name" => "find_user",
+                "id" => "find_user",
+                "value" => $userid,
+                "min" => 0,
+                "style" => "width: 7rem;",
+            ]) . " " . \html_writer::span(s($userfullname), "form-control-static");
     }
 }

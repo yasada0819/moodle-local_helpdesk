@@ -1,5 +1,4 @@
 .path-local-helpdesk {
-    @import "../kopere_dashboard/assets/css/_profile-content";
     .profile-content {
         .table {
             .profile {
@@ -200,8 +199,7 @@
         display: none;
         #fitem_id_message,
         #fitem_id_attachment,
-        #fgroup_id_buttonar,
-        #fitem_id_create_local_geniai {
+        #fgroup_id_buttonar {
             display: block !important;
             label,
             .col-form-label {

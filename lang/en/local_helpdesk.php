@@ -68,49 +68,6 @@ $string['exporttickets'] = 'Export Tickets';
 $string['findcourse'] = 'Select a Course';
 $string['findticket'] = 'Search in subject and text';
 $string['finduser'] = 'Select a User';
-$string['geniai_btn_knowledgebase_create'] = 'Create a knowledge base with AI';
-$string['geniai_btn_response_create'] = 'Create a response with AI';
-$string['geniai_create_knowledgebase_desc'] = 'Describe in detail the content you want to generate. GeniAI will use this information to create an accurate and relevant text for your knowledge base.';
-$string['geniai_create_knowledgebase_message'] = 'Create a message based on the text above.';
-$string['geniai_create_response_desc'] = 'Describe what you want to generate. GeniAI will use all conversations as a basis to create a response, but you need to define which data you want to write.';
-$string['geniai_create_response_message'] = 'Create a message based on the text above.';
-$string['geniai_knowledgebase_prompt'] = 'You are a chatbot specialized in creating knowledge bases for Moodle. Your goal is to generate clear, well-structured, and engaging content using a professional and persuasive first-person tone. Each response should be detailed and thorough, ensuring that any user can easily understand the provided information.
-
-Now, create a knowledge base article on:
-Moodle Name: "{$a->site_fullname}"
-Moodle URL: "{$a->site_url}"
-"{$a->message}"
-
-Return only in the language "{$a->userlang}", no titles, and only in MARKDOWN format.';
-$string['geniai_like_message'] = 'Liked the message? Click here to close and send it to the Editor.';
-$string['geniai_missing'] = 'Install and configure the <a href="{$a}" target="_blank">GenIA</a> plugin to enable AI-powered responses.';
-$string['geniai_ticket_prompt_1'] = 'You are a chatbot that suggests responses to Moodle tickets to solve course or Moodle issues in a cheerful, lively, and first-person manner.
-You love responding with inspiring messages, avoiding lists, and providing detailed explanations while being very attentive to details.
-
-User\'s question from {$a->userfullname}: "{$a->userticket}"
-
-Now, create a response explaining how to solve the following issue using the instructions provided by Support:
-"{$a->message}"
-
-Return only in the "{$a->userlang}" language and only in MARKDOWN format.';
-$string['geniai_ticket_prompt_2'] = 'You are a chatbot that suggests responses to Moodle tickets to solve course or Moodle issues in a cheerful, lively, and first-person manner.
-You love responding with inspiring messages, avoiding lists, and providing detailed explanations while being very attentive to details.
-
-Now, create a response explaining how to solve the following issue:
-
-User\'s question from {$a->userfullname}: "{$a->userticket}"';
-$string['geniai_ticket_prompt_3'] = 'You are a chatbot that suggests responses to Moodle tickets to solve course or Moodle issues in a cheerful, lively, and first-person manner.
-You love responding with inspiring messages, avoiding lists, and providing detailed explanations while being very attentive to details.
-
-Now, based on this history, create a response using the instructions provided by Support:
-"{$a->message}"
-
-Return only in the "{$a->userlang}" language and only in MARKDOWN format.';
-$string['geniai_ticket_prompt_4'] = 'You are a chatbot that suggests responses to Moodle tickets to solve course or Moodle issues in a cheerful, lively, and first-person manner.
-You love responding with inspiring messages, avoiding lists, and providing detailed explanations while being very attentive to details.
-
-Now, based on this history, create a response and return only in the "{$a->userlang}" language and only in MARKDOWN format.';
-$string['geniai_title'] = 'Artificial Intelligence';
 $string['helpdesk:categorydelete'] = 'Allows deleting categories.';
 $string['helpdesk:categorymanage'] = 'Allows managing the Helpdesk categories';
 $string['helpdesk:knowledgebase_delete'] = 'Delete articles in the knowledge base';
@@ -142,35 +99,29 @@ $string['lognewcategory'] = 'Category changed to <strong>{$a}</strong>!';
 $string['lognewpriority'] = 'Priority changed to <strong>{$a}</strong>!';
 $string['lognewstatus'] = 'Status changed to <strong>{$a}</strong>!';
 $string['lognowupdate'] = 'No changes made!';
-$string['mailticket_create_message'] = '<p><strong>{[moodle.fullname]}</strong> >> <strong>{[event.helpdesk]}</strong> >> <strong>{[event.categorylink]}</strong> >> <strong>{[event.subjectlink]}</strong> - Ticket <strong>#{[event.tiketidlink]}</strong></p>
-<p>Dear {[to.fullname]},</p>
-<p>{[from.fullname]} has created ticket #{[event.tiketidlink]}:</p>
+$string['mailticket_create_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
+<p>A new support ticket has been created:</p>
 <blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
-{[event.text]}
-{[event.attachment]}
+{$a->message}
 </blockquote>
+<p><a href="{$a->url}">Open ticket #{$a->ticketid}</a></p>
 <p>Best regards,<br>
 Support Team</p>';
-$string['mailticket_subject'] = '{[event.subjectname]} - Ticket: #{[event.tiketidname]}';
-$string['mailticket_update_message'] = '<p><strong>{[moodle.fullname]}</strong> >> <strong>{[event.helpdesk]}</strong> >> <strong>{[event.categorylink]}</strong> >> <strong>{[event.subjectlink]}</strong> - Ticket <strong>#{[event.tiketidlink]}</strong></p>
-<p>Dear {[to.fullname]},</p>
-<p>Our team has reviewed your case and added new information:</p>
+$string['mailticket_subject'] = '{$a->subject} - Ticket: #{$a->ticketid}';
+$string['mailticket_update_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
+<p>A new response has been added to this ticket:</p>
 <blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
-{[event.text]}
-{[event.attachment]}
+{$a->message}
 </blockquote>
-<p>Please access ticket #{[event.tiketidlink]} to view the update and provide any additional details if necessary. We are available to continue assisting you and resolve your request as quickly as possible.</p>
+<p><a href="{$a->url}">Open ticket #{$a->ticketid}</a> to view the update and provide additional details if necessary.</p>
 <p>Best regards,<br>
 Support Team</p>';
-$string['mailticket_user_message'] = '<p><strong>{[moodle.fullname]}</strong> >> <strong>{[event.tiketidlink]}</strong> >> <strong>{[event.categorylink]}</strong> >> <strong>{[event.subjectlink]}</strong> - Ticket <strong>#{[event.tiketidlink]}</strong></p>
-<p>Dear {[to.fullname]},</p>
-<p>We have received your request:</p>
+$string['mailticket_user_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
+<p>Your ticket has been updated:</p>
 <blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
-{[event.text]}
-{[event.attachment]}
+{$a->message}
 </blockquote>
-<p>If you haven\'t already, you can add more details to your ticket #{[event.tiketidlink]}, such as logs, error messages, screenshots, step-by-step descriptions, or replication steps that can help the support agent assist you more effectively.</p>
-<p>Our team is working on analyzing your issue and will follow up as necessary. We appreciate your patience and understanding.</p>
+<p><a href="{$a->url}">Open ticket #{$a->ticketid}</a> to view the latest information.</p>
 <p>Best regards,<br>
 Support Team</p>';
 $string['markticketasclosed'] = 'Mark Ticket as Closed';
@@ -216,6 +167,7 @@ $string['report_user_reports_avg_response_time_by_user_userid'] = 'User ID';
 $string['report_user_reports_page_description'] = 'Report on users who created the most tickets, including data on the number of tickets and associated response time.';
 $string['report_user_reports_page_title'] = 'User Reports';
 $string['report_user_reports_users_with_most_tickets_open_cat_title'] = 'Users with Most Opened Tickets';
+$string['reportdisabled'] = 'The report page has been disabled in this independent version.';
 $string['savecategory'] = 'Save Category';
 $string['savechanges'] = 'Save Changes';
 $string['setting_course'] = 'Show only inside the course';

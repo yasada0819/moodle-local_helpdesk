@@ -26,7 +26,9 @@ require_once("../../config.php");
 
 require_login();
 
-\local_helpdesk\util\reports::check_instaled();
-
-$surl = new moodle_url("/local/kopere_dashboard/view.php", ["classname" => "bi-dashboard", "method" => "start"]);
-redirect($surl);
+redirect(
+    new moodle_url("/local/helpdesk/index.php"),
+    get_string("reportdisabled", "local_helpdesk"),
+    null,
+    \core\output\notification::NOTIFY_INFO
+);

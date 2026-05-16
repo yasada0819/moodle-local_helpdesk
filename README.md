@@ -1,4 +1,4 @@
-# Kopere Helpdesk
+# Helpdesk
 
 ## Overview
 This plugin provides a ticketing system for managing support requests. It allows users to create and track tickets while enabling administrators and support teams to manage and respond efficiently.
@@ -7,13 +7,14 @@ This plugin provides a ticketing system for managing support requests. It allows
 - Creation and management of support tickets by users.
 - Categorization of tickets for better organization.
 - Assignment of users to specific categories to respond to tickets.
-- Email notifications for new tickets and responses.
-- Automated responses with the assistance of artificial intelligence.
+- Moodle message notifications for new tickets and responses.
+- Knowledge base articles.
 
 ## Requirements
-This plugin requires the **[Kopere BI](https://moodle.org/plugins/local_kopere_bi)** plugin to manage the 12 reports of the helpdesk system.
+This independent version has no Kopere or GeniAI plugin dependency.
 
-Optionally, it also requires the **[GeniAI](https://moodle.org/plugins/local_geniai)** plugin. If **GeniAI** is enabled, it will support automatic response creation using artificial intelligence.
+## Notes
+The original plugin was Kopere Helpdesk. This version keeps the core ticket workflow and replaces Kopere-based notifications with Moodle standard message providers.
 
 ## Contribution
 Contributions are welcome!

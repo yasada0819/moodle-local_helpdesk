@@ -112,8 +112,8 @@ $templatecontext = [
     "user_picture" => (new user_picture($ticket->get_user()))->get_url($PAGE),
 
     "detail" => [
-        "list_courses" => \local_kopere_dashboard\profile::list_courses($ticket->get_user()->id),
-        "get_user_info" => \local_kopere_dashboard\profile::get_user_info($ticket->get_user()),
+        "list_courses" => "",
+        "get_user_info" => "",
     ],
 
     "id" => $ticket->get_id(),

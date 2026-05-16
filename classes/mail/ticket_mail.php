@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * ticket file
+ * Ticket mail helper.
  *
  * @package   local_helpdesk
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
@@ -27,12 +27,8 @@ namespace local_helpdesk\mail;
 use local_helpdesk\model\category_users;
 use local_helpdesk\model\response;
 use local_helpdesk\model\ticket;
-use local_helpdesk\util\files;
-use local_kopere_dashboard\vo\local_kopere_dashboard_event;
 
 defined('MOODLE_INTERNAL') || die();
-
-require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
 
 /**
  * Class ticket_mail
@@ -40,137 +36,74 @@ require_once("{$CFG->dirroot}/local/kopere_dashboard/autoload.php");
  * @package local_helpdesk\mail
  */
 class ticket_mail {
-
     /**
-     * Function send
+     * Sends notifications for a new ticket.
      *
      * @param ticket $ticket
-     *
      * @throws \coding_exception
      * @throws \dml_exception
      */
     public function send_ticket(ticket $ticket) {
-        global $OUTPUT, $CFG;
+        global $CFG;
 
-        $sendevents = new send_message();
-
-        $files = files::all("ticket", $ticket->get_id());
-        $event = (object)[
-            "categoryname" => $ticket->get_category()->get_name(),
-            "categorylink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/?find_category={$ticket->get_categoryid()}",
-                    "text" => $ticket->get_category()->get_name(),
-                ]),
-            "subjectname" => $ticket->get_subject(),
-            "subjectlink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
-                    "text" => $ticket->get_subject(),
-                ]),
-            "helpdesk" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/",
-                    "text" => get_string("pluginname", "local_helpdesk"),
-                ]),
-            "tiketidname" => $ticket->get_idkey(),
-            "tiketidlink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
-                    "text" => $ticket->get_idkey(),
-                ]),
-            "text" => $ticket->get_description(),
-            "attachment" => $OUTPUT->render_from_template("local_helpdesk/mail-attachment",
-                [
-                    "responsefiles_count" => count($files),
-                    "responsefiles" => $files,
-                ]),
+        $a = (object)[
+            "ticketid" => $ticket->get_idkey(),
+            "subject" => $ticket->get_subject(),
+            "category" => $ticket->get_category()->get_name(),
+            "url" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
+            "message" => $ticket->get_description(),
         ];
-        $sendevents->set_event($event);
-
-        $kopereevent = new local_kopere_dashboard_event();
-        $kopereevent->userfrom = "admin";
-        $kopereevent->subject = get_string("mailticket_subject", "local_helpdesk");
-
-        // To Category Users.
-        $kopereevent->message = get_string("mailticket_create_message", "local_helpdesk");
-        $sendevents->set_local_kopere_dashboard_event($kopereevent);
 
         $categoryusers = category_users::get_all(null, ["categoryid" => $ticket->get_categoryid()]);
+        $sendevents = new send_message(
+            get_string("mailticket_subject", "local_helpdesk", $a),
+            get_string("mailticket_create_message", "local_helpdesk", $a),
+            "ticket_created"
+        );
         $sendevents->send_mail($ticket, $categoryusers);
 
-        // To Creator User.
-        $kopereevent->message = get_string("mailticket_user_message", "local_helpdesk");
-        $sendevents->set_local_kopere_dashboard_event($kopereevent);
-
-        $categoryusers = [new category_users(["userid" => $ticket->get_userid()])];
-        $sendevents->send_mail($ticket, $categoryusers);
+        $creator = [new category_users(["userid" => $ticket->get_userid()])];
+        $sendevents = new send_message(
+            get_string("mailticket_subject", "local_helpdesk", $a),
+            get_string("mailticket_user_message", "local_helpdesk", $a),
+            "ticket_updated"
+        );
+        $sendevents->send_mail($ticket, $creator);
     }
 
     /**
-     * Function send_response
+     * Sends notifications for a ticket response.
      *
      * @param ticket $ticket
      * @param response $response
-     *
      * @throws \coding_exception
      * @throws \dml_exception
      */
     public function send_response(ticket $ticket, response $response) {
-        global $OUTPUT, $CFG;
+        global $CFG;
 
-        $sendevents = new send_message();
-
-        $files = files::all("response", $response->get_id());
-        $event = (object)[
-            "categoryname" => $ticket->get_category()->get_name(),
-            "categorylink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/?find_category={$ticket->get_categoryid()}",
-                    "text" => $ticket->get_category()->get_name(),
-                ]),
-            "subjectname" => $ticket->get_subject(),
-            "subjectlink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
-                    "text" => $ticket->get_subject(),
-                ]),
-            "helpdesk" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/",
-                    "text" => get_string("pluginname", "local_helpdesk"),
-                ]),
-            "tiketidname" => $ticket->get_idkey(),
-            "tiketidlink" => $OUTPUT->render_from_template("local_helpdesk/mail-link",
-                [
-                    "link" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
-                    "text" => $ticket->get_idkey(),
-                ]),
-            "text" => $response->get_message(),
-            "attachment" => $OUTPUT->render_from_template("local_helpdesk/mail-attachment",
-                [
-                    "responsefiles_count" => count($files),
-                    "responsefiles" => $files,
-                ]),
+        $a = (object)[
+            "ticketid" => $ticket->get_idkey(),
+            "subject" => $ticket->get_subject(),
+            "category" => $ticket->get_category()->get_name(),
+            "url" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
+            "message" => $response->get_message(),
         ];
-        $sendevents->set_event($event);
-
-        $kopereevent = new local_kopere_dashboard_event();
-        $kopereevent->userfrom = "admin";
-        $kopereevent->subject = "Re: " . get_string("mailticket_subject", "local_helpdesk");
-
-        // To Category Users.
-        $kopereevent->message = get_string("mailticket_update_message", "local_helpdesk");
-        $sendevents->set_local_kopere_dashboard_event($kopereevent);
 
         $categoryusers = category_users::get_all(null, ["categoryid" => $ticket->get_categoryid()]);
+        $sendevents = new send_message(
+            "Re: " . get_string("mailticket_subject", "local_helpdesk", $a),
+            get_string("mailticket_update_message", "local_helpdesk", $a),
+            "ticket_updated"
+        );
         $sendevents->send_mail($ticket, $categoryusers);
 
-        // To Creator User.
-        $kopereevent->message = get_string("mailticket_user_message", "local_helpdesk");
-        $sendevents->set_local_kopere_dashboard_event($kopereevent);
-
-        $categoryusers = [new category_users(["userid" => $ticket->get_userid()])];
-        $sendevents->send_mail($ticket, $categoryusers);
+        $creator = [new category_users(["userid" => $ticket->get_userid()])];
+        $sendevents = new send_message(
+            "Re: " . get_string("mailticket_subject", "local_helpdesk", $a),
+            get_string("mailticket_user_message", "local_helpdesk", $a),
+            "ticket_updated"
+        );
+        $sendevents->send_mail($ticket, $creator);
     }
 }

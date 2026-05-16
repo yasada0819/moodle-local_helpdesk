@@ -24,8 +24,6 @@
 
 namespace local_helpdesk\form;
 
-use local_helpdesk\model\ticket;
-
 defined('MOODLE_INTERNAL') || die();
 
 require_once("{$CFG->libdir}/formslib.php");
@@ -43,8 +41,6 @@ class response_form extends \moodleform {
      * @throws \dml_exception
      */
     protected function definition() {
-        global $OUTPUT, $PAGE, $CFG;
-
         $mform = $this->_form;
 
         $mform->addElement("hidden", "id");
@@ -59,29 +55,6 @@ class response_form extends \moodleform {
         ]);
         $mform->setType("message", PARAM_RAW);
         $mform->addRule("message", null, "required");
-
-        if ($this->_customdata["hasticketmanage"]) {
-            $apikey = get_config("local_geniai", "apikey");
-            if (isset($apikey[20])) {
-                /** @var ticket $ticket */
-                $ticket = $this->_customdata["ticket"];
-                $button = $OUTPUT->render_from_template("local_helpdesk/response-form-ia", [
-                    "ticketid" => $ticket->get_idkey(),
-                ]);
-                $mform->addElement("static", "create_local_geniai", get_string("geniai_title", "local_helpdesk"), $button);
-            } else {
-
-                if (file_exists("{$CFG->dirroot}/local/geniai/lib.php")) {
-                    $link = "{$CFG->wwwroot}/admin/settings.php?section=local_geniai";
-                } else {
-                    $link = "https://moodle.org/plugins/local_geniai";
-                }
-
-                $message = get_string("geniai_missing", "local_helpdesk", $link);
-                $message = $PAGE->get_renderer("core")->render(new \core\output\notification($message, "warning"));
-                $mform->addElement("static", "missing_local_geniai", get_string("geniai_title", "local_helpdesk"), $message);
-            }
-        }
 
         $mform->addElement("filemanager", "attachment", get_string("attachment", "local_helpdesk"), null, [
             "maxfiles" => 5,

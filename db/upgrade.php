@@ -121,21 +121,6 @@ function xmldb_local_helpdesk_upgrade($oldversion) {
 
     if ($oldversion < 2025040803) {
 
-        // Delete olds reports 'local_helpdesk'.
-        $pages = $DB->get_records("local_kopere_bi_page", ["refkey" => "local_helpdesk"]);
-        foreach ($pages as $page) {
-            $blocks = $DB->get_records("local_kopere_bi_block", ["page_id" => $page->id]);
-            foreach ($blocks as $block) {
-                $DB->delete_records("local_kopere_bi_block", ["id" => $block->id]);
-                $DB->delete_records("local_kopere_bi_element", ["block_id" => $block->id]);
-            }
-
-            $DB->delete_records("local_kopere_bi_page", ["id" => $page->id]);
-        }
-        $DB->delete_records("local_kopere_bi_cat", ["refkey" => "local_helpdesk"]);
-
-        \local_helpdesk\util\reports::install();
-
         upgrade_plugin_savepoint(true, 2025040803, "local", "helpdesk");
     }
 

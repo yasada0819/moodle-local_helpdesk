@@ -287,8 +287,7 @@
 }
 .path-local-helpdesk .response-message #fitem_id_message,
 .path-local-helpdesk .response-message #fitem_id_attachment,
-.path-local-helpdesk .response-message #fgroup_id_buttonar,
-.path-local-helpdesk .response-message #fitem_id_create_local_geniai {
+.path-local-helpdesk .response-message #fgroup_id_buttonar {
     display: block !important;
 }
 .path-local-helpdesk .response-message #fitem_id_message label,
@@ -296,9 +295,7 @@
 .path-local-helpdesk .response-message #fitem_id_attachment label,
 .path-local-helpdesk .response-message #fitem_id_attachment .col-form-label,
 .path-local-helpdesk .response-message #fgroup_id_buttonar label,
-.path-local-helpdesk .response-message #fgroup_id_buttonar .col-form-label,
-.path-local-helpdesk .response-message #fitem_id_create_local_geniai label,
-.path-local-helpdesk .response-message #fitem_id_create_local_geniai .col-form-label {
+.path-local-helpdesk .response-message #fgroup_id_buttonar .col-form-label {
     font-weight: bold;
 }
 .path-local-helpdesk .response-message #fitem_id_message .col-md-3,
@@ -306,9 +303,7 @@
 .path-local-helpdesk .response-message #fitem_id_attachment .col-md-3,
 .path-local-helpdesk .response-message #fitem_id_attachment .col-md-9,
 .path-local-helpdesk .response-message #fgroup_id_buttonar .col-md-3,
-.path-local-helpdesk .response-message #fgroup_id_buttonar .col-md-9,
-.path-local-helpdesk .response-message #fitem_id_create_local_geniai .col-md-3,
-.path-local-helpdesk .response-message #fitem_id_create_local_geniai .col-md-9 {
+.path-local-helpdesk .response-message #fgroup_id_buttonar .col-md-9 {
     display: block !important;
     flex: 0 0 100%;
     max-width: 100%;

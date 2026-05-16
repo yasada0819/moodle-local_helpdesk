@@ -15,23 +15,28 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * service file
+ * Message providers for local_helpdesk.
  *
  * @package   local_helpdesk
  * @copyright 2025 Eduardo Kraus {@link https://eduardokraus.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
-$functions = [
-    "local_helpdesk_ticket_column" => [
-        "classpath" => "local/helpdesk/classes/external/ticket.php",
-        "classname" => "\\local_helpdesk\\external\\ticket",
-        "methodname" => "column",
-        "description" => "Saves the column of the ticket",
-        "type" => "write",
-        "ajax" => true,
-        "capabilities" => "local/helpdesk:ticketmanage",
+$messageproviders = [
+    'ticket_created' => [
+        'capability' => 'local/helpdesk:ticketmanage',
+        'defaults' => [
+            'popup' => MESSAGE_PERMITTED,
+            'email' => MESSAGE_PERMITTED,
+        ],
+    ],
+    'ticket_updated' => [
+        'capability' => '',
+        'defaults' => [
+            'popup' => MESSAGE_PERMITTED,
+            'email' => MESSAGE_PERMITTED,
+        ],
     ],
 ];

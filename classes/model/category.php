@@ -160,16 +160,6 @@ class category {
             "modifierid" => $USER->id,
         ];
         $DB->insert_record("role_capabilities", $capabilities);
-        $capabilities = [
-            "contextid" => context_system::instance()->id,
-            "roleid" => $roleid,
-            "capability" => "local/kopere_dashboard:ajax",
-            "permission" => 1,
-            "timemodified" => time(),
-            "modifierid" => $USER->id,
-        ];
-        $DB->insert_record("role_capabilities", $capabilities);
-
         return $roleid;
     }
 

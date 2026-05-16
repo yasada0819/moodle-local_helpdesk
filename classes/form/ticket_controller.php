@@ -52,7 +52,7 @@ class ticket_controller {
             redirect(new moodle_url("/local/helpdesk/index.php"));
         } else if ($data = $form->get_data()) {
             $ticket = new ticket([
-                "userid" => $data->find_user,
+                "userid" => $data->find_user ?? $USER->id,
                 "courseid" => $data->courseid,
                 "categoryid" => $data->categoryid,
                 "subject" => $data->subject,
