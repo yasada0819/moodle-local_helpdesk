@@ -14,25 +14,6 @@
     You should have received a copy of the GNU General Public License
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
-{{!
-    @template local_helpdesk/mail-attachment
-
-    Example context (json):
-    {
-      "responsefiles_count": true,
-      "responsefiles": [
-        {
-          "fullurl": "https://example.com/file1.pdf",
-          "filename": "file1.pdf"
-        },
-        {
-          "fullurl": "https://example.com/file2.docx",
-          "filename": "file2.docx"
-        }
-      ]
-    }
-
-}}
 
 {{#responsefiles_count}}
     <div><strong>{{#str}}attachment, local_helpdesk{{/str}}</strong></div>

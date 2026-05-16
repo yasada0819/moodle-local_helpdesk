@@ -137,6 +137,9 @@
     }
     .response-message {
         display: none;
+        &:target {
+            display: block;
+        }
         #fitem_id_message,
         #fitem_id_attachment,
         #fgroup_id_buttonar {

@@ -14,75 +14,6 @@
     You should have received a copy of the GNU General Public License
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
-{{!
-    @template local_helpdesk/ticket
-
-    Example context (json):
-    {
-        "subject": "Ticket Subject",
-        "description": "This is the description of the ticket.",
-        "ticketfiles_count": 2,
-        "ticketfiles": [
-            {
-                "fullurl": "http://example.com/file1.pdf",
-                "filename": "file1.pdf",
-                "mimetype": "application/pdf"
-            }
-        ],
-        "responses": [
-            {
-                "has_message": true,
-                "user_fullname": "John Doe",
-                "user_picture": "http://example.com/user.jpg",
-                "createdat": "2025-02-25 14:30",
-                "message": "This is the first response message.",
-                "responsefiles_count": 1,
-                "responsefiles": [
-                    {
-                        "fullurl": "http://example.com/responsefile.pdf",
-                        "filename": "responsefile.pdf",
-                        "mimetype": "application/pdf"
-                    }
-                ]
-            }
-        ],
-        "user": {
-            "phone1": "123-456-7890",
-            "phone2": "098-765-4321"
-        },
-        "idkey": "12345",
-        "course_fullname": "Course Name",
-        "user_fullname": "John Doe",
-        "user_picture": "http://example.com/user.jpg",
-        "has_closed": false,
-        "status": "open",
-        "status_translated": "Open",
-        "priority": "high",
-        "priority_translated": "High",
-        "category_translate": "General",
-        "createdat": "2025-02-20",
-        "allfiles_count": 1,
-        "allfiles": [
-            {
-                "fullurl": "http://example.com/attachment.pdf",
-                "filename": "attachment.pdf",
-                "mimetype": "application/pdf"
-            }
-        ],
-        "has_info": true,
-        "has_ticketmanage": true,
-        "status_options": [
-            { "key": "closed", "label": "Closed", "selected": "" }
-        ],
-        "priority_options": [
-            { "key": "low", "label": "Low", "selected": "" }
-        ],
-        "category_options": [
-            { "key": "technical", "label": "Technical", "selected": "" }
-        ]
-    }
-}}
-
 <div class="card">
     <div class="card-header">
         <h5>{{{subject}}}</h5>
@@ -155,21 +86,21 @@
     {{/has_status}}
 {{/responses}}
 
-<div id="area-resonse" class="mt-3 mt-5" style="display:none">
+<div id="area-resonse" class="mt-3 mt-5">
     {{^has_closed}}
         <div id="response-message-area" style="display:flex;gap:12px;">
-            <button id="response-message-open"
-                    class="btn btn-success">{{#str}}replytoticket, local_helpdesk{{/str}}
-            </button>
+            <a href="#response-form"
+               id="response-message-open"
+               class="btn btn-success">{{#str}}replytoticket, local_helpdesk{{/str}}</a>
 
             <div style="width:40px">&nbsp;</div>
 
-            <button id="response-message-resolved"
-                    class="btn btn-info">{{#str}}markticketasresolved, local_helpdesk{{/str}}
-            </button>
-            <button id="response-message-closed"
-                    class="btn btn-danger">{{#str}}markticketasclosed, local_helpdesk{{/str}}
-            </button>
+            <a href="?id={{idkey}}&amp;newstatus=resolved"
+               id="response-message-resolved"
+               class="btn btn-info">{{#str}}markticketasresolved, local_helpdesk{{/str}}</a>
+            <a href="?id={{idkey}}&amp;newstatus=closed"
+               id="response-message-closed"
+               class="btn btn-danger">{{#str}}markticketasclosed, local_helpdesk{{/str}}</a>
         </div>
     {{/has_closed}}
 </div>

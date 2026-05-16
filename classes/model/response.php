@@ -98,6 +98,66 @@ class response {
     }
 
     /**
+     * Gets the latest public message response for a ticket.
+     *
+     * @param int $ticketid
+     * @return response|null
+     * @throws \dml_exception
+     */
+    public static function get_latest_message($ticketid) {
+        global $DB;
+
+        $record = $DB->get_record_sql("
+                SELECT *
+                  FROM {local_helpdesk_response}
+                 WHERE ticketid = :ticketid
+                   AND type = :type
+              ORDER BY createdat DESC, id DESC",
+            [
+                "ticketid" => $ticketid,
+                "type" => self::TYPE_MESSAGE,
+            ],
+            IGNORE_MULTIPLE
+        );
+
+        if ($record) {
+            return new self($record);
+        }
+
+        return null;
+    }
+
+    /**
+     * Resolves the sender role used for reply conflict checks.
+     *
+     * A support sender is either a user assigned to the ticket category or a
+     * user with the general ticket management capability.
+     *
+     * @param int $userid
+     * @param \context $context
+     * @param ticket|null $ticket
+     * @return string
+     * @throws \coding_exception
+     * @throws \dml_exception
+     */
+    public static function get_sender_role($userid, \context $context, ?ticket $ticket = null) {
+        global $DB;
+
+        if ($ticket && $DB->record_exists("local_helpdesk_category_user", [
+                "categoryid" => $ticket->get_categoryid(),
+                "userid" => $userid,
+            ])) {
+            return "support";
+        }
+
+        if (has_capability("local/helpdesk:ticketmanage", $context, $userid)) {
+            return "support";
+        }
+
+        return "user";
+    }
+
+    /**
      * Function save
      *
      * @param ticket $ticket

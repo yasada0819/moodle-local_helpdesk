@@ -231,6 +231,9 @@
 .path-local-helpdesk .response-message {
     display: none;
 }
+.path-local-helpdesk .response-message:target {
+    display: block;
+}
 .path-local-helpdesk .response-message #fitem_id_message,
 .path-local-helpdesk .response-message #fitem_id_attachment,
 .path-local-helpdesk .response-message #fgroup_id_buttonar {

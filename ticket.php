@@ -168,7 +168,7 @@ echo $OUTPUT->render_from_template("local_helpdesk/ticket", $templatecontext);
 
 // Closed ticket not answered.
 if ($ticket->get_status() != ticket::STATUS_CLOSED) {
-    echo \html_writer::start_tag("div", ["class" => "response-message card"]);
+    echo \html_writer::start_tag("div", ["id" => "response-form", "class" => "response-message card"]);
     $responsecontroller = new response_controller();
     $responsecontroller->insert_response($ticket, $hasticketmanage);
     echo \html_writer::end_tag("div");

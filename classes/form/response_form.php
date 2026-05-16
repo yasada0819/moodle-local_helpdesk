@@ -49,6 +49,18 @@ class response_form extends \moodleform {
         $mform->addElement("hidden", "idkey");
         $mform->setType("idkey", PARAM_INT);
 
+        $mform->addElement("hidden", "latestresponseid");
+        $mform->setType("latestresponseid", PARAM_INT);
+
+        $mform->addElement("hidden", "latestresponserole");
+        $mform->setType("latestresponserole", PARAM_ALPHA);
+
+        $mform->addElement("hidden", "confirmresponse");
+        $mform->setType("confirmresponse", PARAM_BOOL);
+
+        $mform->addElement("hidden", "confirmaction");
+        $mform->setType("confirmaction", PARAM_ALPHA);
+
         $mform->addElement("editor", "message", get_string("ticketmessage", "local_helpdesk"), null, [
             "maxfiles" => 0,
             "maxbytes" => 0,
