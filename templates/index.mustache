@@ -207,11 +207,10 @@
            class="btn btn-success text-nowrap">{{#str}}categories, local_helpdesk{{/str}}</a>
     {{/has_categorymanage}}
     {{#has_siteconfig}}
-        <a href="/admin/settings.php?section=local_helpdesk"
-           target="_blank">
-            <img src="/theme/image.php/boost/local_helpdesk/0/settings"
-                 alt="settings"
-                 style="width: 36px;height: 36px;min-width: 36px;min-height: 36px">
+        <a href="{{{config.wwwroot}}}/admin/settings.php?section=local_helpdesk"
+           target="_blank"
+           class="btn btn-secondary text-nowrap">
+            {{#str}}settings{{/str}}
         </a>
     {{/has_siteconfig}}
 </div>
