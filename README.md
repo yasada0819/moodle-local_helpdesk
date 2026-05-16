@@ -20,15 +20,19 @@ This independent version has no Kopere or GeniAI plugin dependency.
 ## Notes
 The original plugin was Kopere Helpdesk. This version keeps the core ticket workflow and replaces Kopere-based notifications with Moodle standard message providers.
 
-## Contribution
-Contributions are welcome!
+Some optional features from the original plugin, including Kopere BI reports and GeniAI-assisted response generation, are intentionally not included in this fork.
 
-Feel free to open issues or pull requests with ideas.
+## Contribution
+Contributions to this fork are welcome.
+
+Feel free to open issues or pull requests with ideas, bug reports, or improvements for the independent version.
 
 If you encounter any bugs or have suggestions for improvement, don’t hesitate to let us know.
 
 ## License
 This plugin is licensed under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
-## Contact
-For more information, contact Eduardo Kraus via [Contact](https://eduardokraus.com/contato).
+## Credits
+This fork is based on Kopere Helpdesk for Moodle by Eduardo Kraus.
+
+For information about the original plugin, see the original project and author resources.
