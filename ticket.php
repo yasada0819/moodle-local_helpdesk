@@ -59,8 +59,6 @@ $PAGE->set_title($ticket->get_subject());
 $PAGE->set_heading($ticket->get_subject());
 
 $PAGE->requires->jquery();
-$PAGE->requires->jquery_plugin("ui");
-$PAGE->requires->jquery_plugin("ui-css");
 
 if ($USER->id != $ticket->get_userid()) {
     require_capability("local/helpdesk:ticketmanage", $context);
@@ -110,11 +108,6 @@ $templatecontext = [
     "user" => $ticket->get_user(),
     "user_fullname" => fullname($ticket->get_user()),
     "user_picture" => (new user_picture($ticket->get_user()))->get_url($PAGE),
-
-    "detail" => [
-        "list_courses" => "",
-        "get_user_info" => "",
-    ],
 
     "id" => $ticket->get_id(),
     "idkey" => $ticket->get_idkey(),

@@ -21,10 +21,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-define(["jquery", "core/ajax", "core/notification", "jqueryui"], function($, Ajax, Notification, ui) {
+define(["jquery", "core/ajax", "core/notification"], function($, Ajax, Notification) {
     return {
         init: function(idkey) {
-            $("#profile-tabs").show(300).tabs();
             $("#area-resonse").show(300);
 
             $("#response-message-open").click(function() {

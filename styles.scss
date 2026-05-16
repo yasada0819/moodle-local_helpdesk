@@ -1,64 +1,4 @@
 .path-local-helpdesk {
-    .profile-content {
-        .table {
-            .profile {
-                img {
-                    display: none;
-                }
-                .name {
-                    display: none;
-                }
-            }
-            .info {
-                border-left: none;
-                p {
-                    text-align: left;
-                }
-            }
-            h2, h3, h4 {
-                text-align: left !important;
-                color: #646464;
-            }
-            h2 {
-                font-size: 24px;
-            }
-            h3 {
-                font-size: 20px;
-            }
-            h3 {
-                font-size: 16px;
-            }
-            .btn {
-                padding: 3px 8px;
-            }
-        }
-    }
-    #profile-tabs {
-        padding: 0;
-        border: 0;
-        background: none;
-        .ui-tabs-nav {
-            background: none;
-            border: none;
-            padding: 0;
-            margin: 0;
-            li {
-                background: none;
-                &.ui-tabs-active {
-                    border: 1px solid #afb7bc;
-                    border-bottom: none;
-                    padding-bottom: 0;
-                    a {
-                        background: #dae1e5;
-                        border: none;
-                    }
-                }
-            }
-        }
-        .ui-tabs-panel {
-            background: #dae1e5;
-        }
-    }
     .container {
         width: 100% !important;
     }
@@ -222,25 +162,6 @@
     }
     .text-secondary {
         color: #828c96 !important;
-    }
-    
-    #chart-course-button-open {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    #chart-course-datatable-select {
-        min-width: 800px;
-        min-height: 450px !important;
-    }
-    #chart-user-button-open {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-    #chart-user-datatable-select {
-        min-width: 800px;
-        min-height: 450px !important;
     }
     .modal-xl {
         @media (min-width: 992px) {
