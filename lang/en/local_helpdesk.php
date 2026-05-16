@@ -105,6 +105,23 @@ $string['mailticket_create_message'] = '<p><strong>{$a->category}</strong> >> <s
 <p>Best regards,<br>
 Support Team</p>';
 $string['mailticket_subject'] = '{$a->subject} - Ticket: #{$a->ticketid}';
+$string['mailticket_status_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
+<p>The ticket status has been changed to <strong>{$a->status}</strong>.</p>
+<blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
+{$a->message}
+</blockquote>
+<p><a href="{$a->url}">Open ticket #{$a->ticketid}</a> to view the latest status.</p>
+<p>Best regards,<br>
+Support Team</p>';
+$string['mailticket_status_subject'] = 'Status updated: {$a->subject} - Ticket: #{$a->ticketid}';
+$string['mailticket_status_user_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
+<p>The status of your ticket has been changed to <strong>{$a->status}</strong>.</p>
+<blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
+{$a->message}
+</blockquote>
+<p><a href="{$a->url}">Open ticket #{$a->ticketid}</a> to view the latest status.</p>
+<p>Best regards,<br>
+Support Team</p>';
 $string['mailticket_update_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - Ticket <strong>#{$a->ticketid}</strong></p>
 <p>A new response has been added to this ticket:</p>
 <blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">

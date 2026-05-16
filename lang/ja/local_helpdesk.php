@@ -105,6 +105,23 @@ $string['mailticket_create_message'] = '<p><strong>{$a->category}</strong> >> <s
 <p>よろしくお願いいたします。<br>
 サポートチーム</p>';
 $string['mailticket_subject'] = '{$a->subject} - チケット: #{$a->ticketid}';
+$string['mailticket_status_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - チケット <strong>#{$a->ticketid}</strong></p>
+<p>チケットのステータスが <strong>{$a->status}</strong> に変更されました。</p>
+<blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
+{$a->message}
+</blockquote>
+<p><a href="{$a->url}">チケット #{$a->ticketid} を開く</a>と、最新のステータスを確認できます。</p>
+<p>よろしくお願いいたします。<br>
+サポートチーム</p>';
+$string['mailticket_status_subject'] = 'ステータス更新: {$a->subject} - チケット: #{$a->ticketid}';
+$string['mailticket_status_user_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - チケット <strong>#{$a->ticketid}</strong></p>
+<p>あなたのチケットのステータスが <strong>{$a->status}</strong> に変更されました。</p>
+<blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">
+{$a->message}
+</blockquote>
+<p><a href="{$a->url}">チケット #{$a->ticketid} を開く</a>と、最新のステータスを確認できます。</p>
+<p>よろしくお願いいたします。<br>
+サポートチーム</p>';
 $string['mailticket_update_message'] = '<p><strong>{$a->category}</strong> >> <strong>{$a->subject}</strong> - チケット <strong>#{$a->ticketid}</strong></p>
 <p>このチケットに新しい返信が追加されました。</p>
 <blockquote style="border-left: 4px solid #9E9E9E;padding-left: 7px;">

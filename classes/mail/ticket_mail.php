@@ -106,4 +106,41 @@ class ticket_mail {
         );
         $sendevents->send_mail($ticket, $creator);
     }
+
+    /**
+     * Sends notifications for a ticket status change.
+     *
+     * @param ticket $ticket
+     * @param string $statusmessage
+     * @throws \coding_exception
+     * @throws \dml_exception
+     */
+    public function send_status(ticket $ticket, $statusmessage) {
+        global $CFG;
+
+        $a = (object)[
+            "ticketid" => $ticket->get_idkey(),
+            "subject" => $ticket->get_subject(),
+            "category" => $ticket->get_category()->get_name(),
+            "url" => "{$CFG->wwwroot}/local/helpdesk/ticket.php?id={$ticket->get_idkey()}",
+            "message" => $statusmessage,
+            "status" => $ticket->get_status_translated(),
+        ];
+
+        $categoryusers = category_users::get_all(null, ["categoryid" => $ticket->get_categoryid()]);
+        $sendevents = new send_message(
+            get_string("mailticket_status_subject", "local_helpdesk", $a),
+            get_string("mailticket_status_message", "local_helpdesk", $a),
+            "ticket_updated"
+        );
+        $sendevents->send_mail($ticket, $categoryusers);
+
+        $creator = [new category_users(["userid" => $ticket->get_userid()])];
+        $sendevents = new send_message(
+            get_string("mailticket_status_subject", "local_helpdesk", $a),
+            get_string("mailticket_status_user_message", "local_helpdesk", $a),
+            "ticket_updated"
+        );
+        $sendevents->send_mail($ticket, $creator);
+    }
 }

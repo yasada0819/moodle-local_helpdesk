@@ -24,6 +24,7 @@
 
 use core\output\notification;
 use local_helpdesk\form\response_controller;
+use local_helpdesk\mail\ticket_mail;
 use local_helpdesk\model\category;
 use local_helpdesk\model\response;
 use local_helpdesk\model\ticket;
@@ -80,7 +81,10 @@ if ($hasticketmanage) {
 
 $newstatus = optional_param("newstatus", false, PARAM_TEXT);
 if ($newstatus && in_array($newstatus, [ticket::STATUS_CLOSED, ticket::STATUS_RESOLVED])) {
-    $ticket->change_status($newstatus);
+    if ($ticket->change_status($newstatus)) {
+        $mail = new ticket_mail();
+        $mail->send_status($ticket, get_string("lognewstatus", "local_helpdesk", $ticket->get_status_translated()));
+    }
     redirect(new moodle_url("/local/helpdesk/ticket.php?id={$ticketid}"));
 }
 

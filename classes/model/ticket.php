@@ -549,6 +549,11 @@ class ticket {
         }
 
         $this->set_status($newstatus);
+        if ($newstatus == self::STATUS_CLOSED) {
+            $this->set_closedat(time());
+        } else {
+            $this->set_closedat(0);
+        }
         $this->save();
 
         $status = self::status_translated($newstatus);

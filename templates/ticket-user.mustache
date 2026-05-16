@@ -45,37 +45,23 @@
                     <span class="text-secondary">{{course_fullname}}</span>
                 </div>
             {{/course_fullname}}
-            {{#has_closed}}
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <strong>{{#str}}ticketstatus, local_helpdesk{{/str}}:</strong>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <strong>{{#str}}ticketstatusshort, local_helpdesk{{/str}}:</strong>
+                {{#hasticketmanage}}
+                    <select name="changue_status"
+                            id="changue_status"
+                            data-column="status"
+                            style="max-width: 138px;">
+                        {{#status_options}}
+                            <option value="{{key}}" {{selected}}>{{label}}</option>
+                        {{/status_options}}
+                    </select>
+                {{/hasticketmanage}}
+                {{^hasticketmanage}}
                     <span class="badge status-{{status}}">{{status_translated}}</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <strong>{{#str}}ticketpriority, local_helpdesk{{/str}}:</strong>
-                    <span class="badge priority-{{priority}}">{{priority_translated}}</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <strong>{{#str}}ticketcategory, local_helpdesk{{/str}}:</strong>
-                    <span class="text-secondary">{{category_translate}}</span>
-                </div>
-            {{/has_closed}}
+                {{/hasticketmanage}}
+            </div>
             {{^has_closed}}
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <strong>{{#str}}ticketstatusshort, local_helpdesk{{/str}}:</strong>
-                    {{#hasticketmanage}}
-                        <select name="changue_status"
-                                id="changue_status"
-                                data-column="status"
-                                style="max-width: 138px;">
-                            {{#status_options}}
-                                <option value="{{key}}" {{selected}}>{{label}}</option>
-                            {{/status_options}}
-                        </select>
-                    {{/hasticketmanage}}
-                    {{^hasticketmanage}}
-                        <span class="badge status-{{status}}">{{status_translated}}</span>
-                    {{/hasticketmanage}}
-                </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <strong>{{#str}}ticketpriorityshort, local_helpdesk{{/str}}:</strong>
 

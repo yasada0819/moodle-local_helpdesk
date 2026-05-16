@@ -28,6 +28,7 @@ use external_api;
 use external_function_parameters;
 use external_single_structure;
 use external_value;
+use local_helpdesk\mail\ticket_mail;
 use local_helpdesk\model\response;
 
 defined('MOODLE_INTERNAL') || die;
@@ -102,6 +103,8 @@ class ticket extends external_api {
                 if ($params["value"] != $ticket->get_status()) {
                     $ticket->change_status($params["value"]);
                     $savestatus = get_string("lognewstatus", "local_helpdesk", $ticket->get_status_translated());
+                    $mail = new ticket_mail();
+                    $mail->send_status($ticket, $savestatus);
                 } else {
                     $savestatus = get_string("lognowupdate", "local_helpdesk");
                 }
